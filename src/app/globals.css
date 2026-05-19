@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+}
+
+html,
+body {
+  background: #101013;
+  color: #ededee;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle scrollbars in dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+  background-clip: content-box;
+}
+
+/* Tighten react-markdown defaults */
+.prose-invert p {
+  margin: 0.5em 0;
+}
+.prose-invert ul,
+.prose-invert ol {
+  margin: 0.5em 0;
+  padding-left: 1.25em;
+}
+.prose-invert li {
+  margin: 0.25em 0;
+}
+.prose-invert h1,
+.prose-invert h2,
+.prose-invert h3 {
+  margin: 1em 0 0.5em;
+  font-weight: 600;
+  color: #fafafa;
+}
+.prose-invert h1 { font-size: 1.1rem; }
+.prose-invert h2 { font-size: 1.0rem; }
+.prose-invert h3 { font-size: 0.95rem; }
+.prose-invert code {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.85em;
+}
+.prose-invert pre {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  padding: 0.75em 1em;
+  overflow-x: auto;
+  margin: 0.75em 0;
+}
+.prose-invert pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+.prose-invert a {
+  color: #60a5fa;
+  text-decoration: underline;
+}
+.prose-invert strong {
+  color: #fafafa;
+}
