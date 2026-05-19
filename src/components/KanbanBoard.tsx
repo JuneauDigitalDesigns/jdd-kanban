@@ -147,62 +147,70 @@ export default function KanbanBoard({ initial }: KanbanBoardProps) {
           background: "rgba(16,16,19,0.85)",
         }}
       >
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-4">
-          <div>
-            <h1 className="text-base font-semibold tracking-tight">
-              {data.meta.projectName}
-            </h1>
-            <p className="text-xs text-zinc-500">
-              {data.meta.businessName} · {data.meta.totalTasks} tasks ·{" "}
-              <span className="text-zinc-400">{totalDone} done</span>
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            {/* Sort control */}
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 11, color: "rgba(235,235,238,0.35)", whiteSpace: "nowrap" }}>
-                Sort
-              </span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortKey)}
-                style={{
-                  appearance: "none",
-                  WebkitAppearance: "none",
-                  background: "rgba(0, 0, 0, 0.60)",
-                  border: "0.5px solid rgba(255,255,255,0.10)",
-                  borderRadius: 8,
-                  color: "rgba(235,235,238,0.75)",
-                  fontSize: 12,
-                  fontFamily: "inherit",
-                  padding: "5px 28px 5px 10px",
-                  cursor: "pointer",
-                  outline: "none",
-                  backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(235,235,238,0.4)' d='M0 0h10L5 6z'/></svg>")`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right 9px center",
-                }}
-              >
-                {SORT_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
-                ))}
-              </select>
+        <div className="mx-auto max-w-[1600px] px-6 py-4">
+          <div className="flex items-start justify-between gap-4">
+            {/* Project info */}
+            <div>
+              <h1 className="text-base font-semibold tracking-tight">
+                {data.meta.projectName}
+              </h1>
+              <p className="text-xs text-zinc-500">
+                {data.meta.businessName} · {data.meta.totalTasks} tasks ·{" "}
+                <span className="text-zinc-400">{totalDone} done</span>
+              </p>
             </div>
 
-            {error && (
-              <div
-                role="alert"
-                className="rounded-md border border-red-900/50 bg-red-950/40 px-3 py-1.5 text-xs text-red-300"
-              >
-                {error}
+            {/* Controls: stacked on mobile (save → sort), row on desktop (sort → save) */}
+            <div className="flex flex-col items-end gap-2 md:flex-row md:items-center md:gap-3">
+              {/* Save + error — top on mobile, last on desktop */}
+              <div className="flex items-center gap-2">
+                {error && (
+                  <div
+                    role="alert"
+                    className="rounded-md border border-red-900/50 bg-red-950/40 px-3 py-1.5 text-xs text-red-300"
+                  >
+                    {error}
+                  </div>
+                )}
+                <SaveButton
+                  saveState={saveState}
+                  lastSavedAt={lastSavedAt}
+                  isDirty={isDirty}
+                  onSave={saveAll}
+                />
               </div>
-            )}
-            <SaveButton
-              saveState={saveState}
-              lastSavedAt={lastSavedAt}
-              isDirty={isDirty}
-              onSave={saveAll}
-            />
+
+              {/* Sort — below Save on mobile, before Save on desktop */}
+              <div className="flex items-center gap-2 md:order-first" style={{ gap: 8 }}>
+                <span style={{ fontSize: 11, color: "rgba(235,235,238,0.35)", whiteSpace: "nowrap" }}>
+                  Sort
+                </span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as SortKey)}
+                  style={{
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    background: "rgba(0, 0, 0, 0.60)",
+                    border: "0.5px solid rgba(255,255,255,0.10)",
+                    borderRadius: 8,
+                    color: "rgba(235,235,238,0.75)",
+                    fontSize: 12,
+                    fontFamily: "inherit",
+                    padding: "5px 28px 5px 10px",
+                    cursor: "pointer",
+                    outline: "none",
+                    backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(235,235,238,0.4)' d='M0 0h10L5 6z'/></svg>")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right 9px center",
+                  }}
+                >
+                  {SORT_OPTIONS.map((o) => (
+                    <option key={o.value} value={o.value}>{o.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </header>
