@@ -40,7 +40,6 @@ export default function EpicCard({ task, data, onClick, isOverlay = false }: Epi
           ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
           : undefined,
         opacity: isDragging ? 0 : 1,
-        touchAction: "none",
       };
 
   return (
